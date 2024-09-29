@@ -6,22 +6,11 @@ const notationContainer = document.getElementById('notation');
 // Определяем синтезатор Tone
 let synth;
 
-// Функция для предварительной инициализации аудио-контекста
+// Функция для инициализации аудио-контекста
 async function initializeAudio() {
-    try {
-        // Инициализируем аудио-контекст Tone.js
-        await Tone.start();
-        synth = new Tone.Synth().toDestination();
-
-        // Пустой звук для разблокировки аудио на iOS
-        const unlockSound = new Audio('./sounds/unlock.mp3');
-        unlockSound.volume = 0;  // Бесшумный звук
-        unlockSound.play();
-
-        console.log("Аудио-контекст Tone.js инициализирован и разблокирован.");
-    } catch (error) {
-        console.error("Ошибка при инициализации аудио-контекста:", error);
-    }
+    await Tone.start();
+    synth = new Tone.Synth().toDestination();
+    console.log("Аудио-контекст Tone.js инициализирован.");
 }
 
 // Функция для воспроизведения звука
@@ -35,13 +24,27 @@ function playNote(note) {
 
 // Убедимся, что все элементы существуют
 if (pianoContainer && timerElement && notationContainer) {
-    const pianoKeys = ['C', 'D', 'E', 'F', 'G', 'A', 'B'];
+    const pianoKeys = [
+        { note: 'C', isBlack: false },
+        { note: 'C#', isBlack: true },
+        { note: 'D', isBlack: false },
+        { note: 'D#', isBlack: true },
+        { note: 'E', isBlack: false },
+        { note: 'F', isBlack: false },
+        { note: 'F#', isBlack: true },
+        { note: 'G', isBlack: false },
+        { note: 'G#', isBlack: true },
+        { note: 'A', isBlack: false },
+        { note: 'A#', isBlack: true },
+        { note: 'B', isBlack: false }
+    ];
 
-    pianoKeys.forEach(note => {
-        const key = document.createElement('button');
-        key.textContent = note;
-        key.addEventListener('click', () => playNote(note));
-        pianoContainer.appendChild(key);
+    pianoKeys.forEach(key => {
+        const button = document.createElement('button');
+        button.textContent = key.note;
+        button.classList.add(key.isBlack ? 'black-key' : 'white-key');
+        button.addEventListener('click', () => playNote(key.note));
+        pianoContainer.appendChild(button);
     });
 
     let timeLeft = 30;
@@ -59,9 +62,9 @@ if (pianoContainer && timerElement && notationContainer) {
     const VF = Vex.Flow;
     const renderer = new VF.Renderer(notationContainer, VF.Renderer.Backends.SVG);
 
-    renderer.resize(500, 200);
+    renderer.resize(600, 200);  // Увеличиваем размер нотного стана
     const context = renderer.getContext();
-    const stave = new VF.Stave(10, 40, 400);
+    const stave = new VF.Stave(10, 40, 500);
 
     stave.addClef('treble').setContext(context).draw();
 
@@ -76,27 +79,8 @@ if (pianoContainer && timerElement && notationContainer) {
     const formatter = new VF.Formatter().joinVoices([voice]).format([voice], 400);
     voice.draw(context, stave);
 
-    // Инициализация аудио-контекста при загрузке страницы
+    // Инициализация аудио-контекста
     initializeAudio();
 } else {
     console.error("Не удалось найти элементы на странице.");
-}
-
-// Проверка на наличие объекта Telegram Web Apps
-if (window.Telegram.WebApp) {
-    const telegramWebApp = window.Telegram.WebApp;
-    
-    // Инициализация приложения
-    telegramWebApp.ready();
-
-    // Получение информации о пользователе
-    const user = telegramWebApp.initDataUnsafe.user;
-    console.log(`Привет, ${user.first_name}!`);
-    
-    // Пример отправки сообщения пользователю
-    document.getElementById('sendMessageButton').addEventListener('click', () => {
-        telegramWebApp.sendData("Привет от вашего пианино-бота!");
-    });
-} else {
-    console.error("Telegram Web Apps не обнаружен.");
 }
