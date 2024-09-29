@@ -1,21 +1,19 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <title>Пианино Учебное Приложение</title>
-  <link rel="stylesheet" href="styles.css">
-  <script src="https://unpkg.com/vexflow/releases/vexflow-min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.39/Tone.min.js"></script>
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
-
+    <meta charset="UTF-8">
+    <title>Пианино Учебное Приложение</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/vexflow/releases/vexflow-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.39/Tone.min.js"></script>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
-  <div id="notation"></div>
-  <div id="piano"></div>
-  <div id="timer">30</div>
-  
-  <!-- Подключаем app.js в самом конце, после всех элементов -->
-  <script src="app.js"></script>
+    <div id="notation"></div>
+    <div id="timer">30</div>
+    <div id="piano"></div>
+    <button id="sendMessageButton">Отправить сообщение</button>
+    
+    <script src="app.js"></script>
 </body>
 </html>
