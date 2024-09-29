@@ -23,10 +23,19 @@ body {
 #controls {
     display: flex;
     justify-content: space-around;
+    align-items: center;
     width: 80%;
     max-width: 800px;
     margin: 20px 0;
     flex-wrap: wrap;
+}
+
+/* Стили для таймера */
+#timer {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    width: 100%;
+    text-align: center;
 }
 
 /* Стили для кнопок управления октавами */
@@ -45,9 +54,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
     font-size: 1.5em;
-    margin-bottom: 10px;
 }
 
 /* Стили для пианино */
