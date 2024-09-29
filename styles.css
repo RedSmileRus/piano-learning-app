@@ -28,15 +28,15 @@ body {
     left: 0;
     right: 0;
     margin: 0 auto;
-    width: 90%;
+    width: 100%; /* Устанавливаем ширину в 100% от экрана */
+    max-width: 750px; /* Максимальная ширина для больших экранов */
 }
 
-/* Стили для белых клавиш */
-#piano button.white-key {
-    width: 50px;
+/* Стили для клавиш пианино */
+#piano button {
+    flex: 1; /* Растягиваем клавиши по ширине равномерно */
     height: 150px;
     margin: 2px;
-    background-color: white;
     border: 1px solid black;
     border-radius: 5px;
     font-size: 1em;
@@ -44,20 +44,23 @@ body {
     cursor: pointer;
 }
 
+/* Стили для белых клавиш */
+#piano button.white-key {
+    background-color: white;
+}
+
 /* Стили для черных клавиш */
 #piano button.black-key {
-    width: 30px;
+    width: 60%; /* Ширина черных клавиш относительно белых */
     height: 100px;
     background-color: black;
     color: white;
-    border: 1px solid black;
     position: relative;
     z-index: 1;
     margin-left: -15px;
     margin-right: -15px;
     border-radius: 5px;
     box-shadow: 0 4px #666;
-    cursor: pointer;
 }
 
 /* Стиль при нажатии на клавиши */
