@@ -14,14 +14,15 @@ async function playNote(note) {
         console.log("Инициализация аудио...");
         await Tone.start();  // Явно запускаем аудио-контекст
         synth = new Tone.Synth().toDestination();  // Создаем синтезатор
+
+        // Попробуем установить mute в true, чтобы iOS могла обойти ограничение
+        synth.volume.mute = true;
+
         isAudioInitialized = true;  // Устанавливаем флаг инициализации
         console.log("Аудио инициализировано.");
     }
-
-    // Воспроизводим звук
-    console.log(`Воспроизведение ноты: ${note}`);
-    synth.triggerAttackRelease(note + '4', '8n');
 }
+
 
 // Убедимся, что все элементы существуют
 if (pianoContainer && timerElement && notationContainer) {
