@@ -3,32 +3,30 @@ const pianoContainer = document.getElementById('piano');
 const timerElement = document.getElementById('timer');
 const notationContainer = document.getElementById('notation');
 
-// Определяем синтезатор Tone и флаг инициализации аудио
-let synth;
-let isAudioInitialized = false;
+// Словарь для хранения аудиофайлов Howler.js
+const audioFiles = {};
 
 // Функция для воспроизведения звука
-async function playNote(note) {
-    // Если аудио еще не инициализировано, инициализируем его
-    if (!isAudioInitialized) {
-        console.log("Инициализация аудио...");
-        await Tone.start();  // Явно запускаем аудио-контекст
-        synth = new Tone.Synth().toDestination();  // Создаем синтезатор
-
-        // Попробуем установить mute в true, чтобы iOS могла обойти ограничение
-        synth.volume.mute = true;
-
-        isAudioInitialized = true;  // Устанавливаем флаг инициализации
-        console.log("Аудио инициализировано.");
+function playNote(note) {
+    if (audioFiles[note]) {
+        audioFiles[note].play();
+    } else {
+        console.error(`Аудиофайл для ноты ${note} не найден.`);
     }
 }
-
 
 // Убедимся, что все элементы существуют
 if (pianoContainer && timerElement && notationContainer) {
     const pianoKeys = ['C', 'D', 'E', 'F', 'G', 'A', 'B'];
 
     pianoKeys.forEach(note => {
+        // Создаем звуковые объекты Howler.js и сохраняем их в словаре
+        audioFiles[note] = new Howl({
+            src: [`./sounds/${note}.mp3`],
+            html5: true, // Используем HTML5 Audio, чтобы обойти некоторые ограничения на iOS
+        });
+
+        // Создаем клавиши пианино
         const key = document.createElement('button');
         key.textContent = note;
         key.addEventListener('click', () => playNote(note));
