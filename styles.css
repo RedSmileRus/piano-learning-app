@@ -31,34 +31,36 @@ body {
     width: 90%;
 }
 
-/* Стили для клавиш пианино */
-#piano button {
+/* Стили для белых клавиш */
+#piano button.white-key {
     width: 50px;
     height: 150px;
     margin: 2px;
+    background-color: white;
     border: 1px solid black;
     border-radius: 5px;
     font-size: 1em;
-    text-align: center;
     box-shadow: 0 4px #999;
     cursor: pointer;
 }
 
-#piano button.white-key {
-    background-color: white;
-}
-
+/* Стили для черных клавиш */
 #piano button.black-key {
     width: 30px;
     height: 100px;
     background-color: black;
     color: white;
+    border: 1px solid black;
     position: relative;
     z-index: 1;
     margin-left: -15px;
     margin-right: -15px;
+    border-radius: 5px;
+    box-shadow: 0 4px #666;
+    cursor: pointer;
 }
 
+/* Стиль при нажатии на клавиши */
 #piano button:active {
     background-color: #ccc;
     box-shadow: 0 2px #666;
