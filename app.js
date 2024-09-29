@@ -13,6 +13,9 @@ function playNote(note) {
 
 // Убедимся, что все элементы существуют
 if (pianoContainer && timerElement && notationContainer) {
+    // Очищаем контейнер клавиш перед добавлением новых
+    pianoContainer.innerHTML = '';
+
     const pianoKeys = [
         { note: 'C', isBlack: false },
         { note: 'C#', isBlack: true },
