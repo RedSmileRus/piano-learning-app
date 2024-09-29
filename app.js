@@ -3,28 +3,29 @@ const pianoContainer = document.getElementById('piano');
 const timerElement = document.getElementById('timer');
 const notationContainer = document.getElementById('notation');
 
-// Определяем синтезатор Tone и флаг инициализации аудио
+// Определяем синтезатор Tone
 let synth;
-let isAudioInitialized = false;
 
-// Функция для разблокировки аудио-контекста на iOS
-function unlockAudio() {
-    if (!isAudioInitialized) {
-        // Инициализация аудио-контекста Tone.js
-        Tone.start().then(() => {
-            synth = new Tone.Synth().toDestination();
-            isAudioInitialized = true;
-            console.log("Аудио-контекст Tone.js разблокирован и инициализирован.");
-        }).catch((error) => {
-            console.error("Ошибка при инициализации аудио-контекста:", error);
-        });
+// Функция для предварительной инициализации аудио-контекста
+async function initializeAudio() {
+    try {
+        // Инициализируем аудио-контекст Tone.js
+        await Tone.start();
+        synth = new Tone.Synth().toDestination();
+
+        // Пустой звук для разблокировки аудио на iOS
+        const unlockSound = new Audio('./sounds/unlock.mp3');
+        unlockSound.volume = 0;  // Бесшумный звук
+        unlockSound.play();
+
+        console.log("Аудио-контекст Tone.js инициализирован и разблокирован.");
+    } catch (error) {
+        console.error("Ошибка при инициализации аудио-контекста:", error);
     }
 }
 
 // Функция для воспроизведения звука
 function playNote(note) {
-    unlockAudio(); // Разблокировка аудио-контекста перед воспроизведением
-
     if (synth) {
         synth.triggerAttackRelease(note + '4', '8n');
     } else {
@@ -74,6 +75,9 @@ if (pianoContainer && timerElement && notationContainer) {
 
     const formatter = new VF.Formatter().joinVoices([voice]).format([voice], 400);
     voice.draw(context, stave);
+
+    // Инициализация аудио-контекста при загрузке страницы
+    initializeAudio();
 } else {
     console.error("Не удалось найти элементы на странице.");
 }
