@@ -6,8 +6,30 @@ const notationContainer = document.getElementById('notation');
 // Словарь для хранения аудиофайлов Howler.js
 const audioFiles = {};
 
-// Функция для воспроизведения звука
+// Флаг разблокировки аудио
+let isAudioUnlocked = false;
+
+// Функция для разблокировки аудио
+function unlockAudio() {
+    if (!isAudioUnlocked) {
+        // Создаем аудио-объект для разблокировки
+        const unlockSound = new Howl({
+            src: ['./sounds/unlock.mp3'],
+            html5: true,
+            volume: 0.0 // Тихий звук
+        });
+
+        // Воспроизводим разблокирующий звук
+        unlockSound.play();
+        isAudioUnlocked = true;
+        console.log("Аудио-контекст разблокирован.");
+    }
+}
+
+// Функция для воспроизведения звука ноты
 function playNote(note) {
+    unlockAudio(); // Разблокируем аудио перед воспроизведением ноты
+
     if (audioFiles[note]) {
         audioFiles[note].play();
     } else {
