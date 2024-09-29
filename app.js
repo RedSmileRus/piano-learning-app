@@ -3,23 +3,12 @@ const pianoContainer = document.getElementById('piano');
 const timerElement = document.getElementById('timer');
 const notationContainer = document.getElementById('notation');
 
-// Определяем синтезатор Tone
-let synth;
-
-// Функция для инициализации аудио-контекста
-async function initializeAudio() {
-    await Tone.start();
-    synth = new Tone.Synth().toDestination();
-    console.log("Аудио-контекст Tone.js инициализирован.");
-}
+// Определяем синтезатор Tone.js
+let synth = new Tone.Synth().toDestination();
 
 // Функция для воспроизведения звука
 function playNote(note) {
-    if (synth) {
-        synth.triggerAttackRelease(note + '4', '8n');
-    } else {
-        console.error("Синтезатор не инициализирован.");
-    }
+    synth.triggerAttackRelease(note + '4', '8n');
 }
 
 // Убедимся, что все элементы существуют
@@ -78,9 +67,6 @@ if (pianoContainer && timerElement && notationContainer) {
 
     const formatter = new VF.Formatter().joinVoices([voice]).format([voice], 400);
     voice.draw(context, stave);
-
-    // Инициализация аудио-контекста
-    initializeAudio();
 } else {
     console.error("Не удалось найти элементы на странице.");
 }
