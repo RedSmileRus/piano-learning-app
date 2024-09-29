@@ -26,6 +26,7 @@ body {
     width: 80%;
     max-width: 800px;
     margin: 20px 0;
+    flex-wrap: wrap;
 }
 
 /* Стили для кнопок управления октавами */
@@ -37,12 +38,16 @@ body {
     background-color: #f0f0f0;
     cursor: pointer;
     border-radius: 5px;
+    margin: 5px;
 }
 
 #controls span {
     display: flex;
     align-items: center;
+    justify-content: center;
+    width: 100%;
     font-size: 1.5em;
+    margin-bottom: 10px;
 }
 
 /* Стили для пианино */
