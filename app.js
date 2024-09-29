@@ -6,6 +6,7 @@ const octaveDownButton = document.getElementById('octave-down');
 const octaveUpButton = document.getElementById('octave-up');
 const currentOctaveElement = document.getElementById('current-octave');
 const startButton = document.getElementById('start-button');
+const stopButton = document.getElementById('stop-button');
 
 // Определяем синтезатор Tone.js
 let synth = new Tone.Synth().toDestination();
@@ -55,6 +56,13 @@ startButton.addEventListener('click', () => {
     }, 1000);
 });
 
+// Обработчик для кнопки "Стоп"
+stopButton.addEventListener('click', () => {
+    if (timer) {
+        clearInterval(timer); // Останавливаем таймер
+    }
+});
+
 // Убедимся, что все элементы существуют
 if (pianoContainer && timerElement && notationContainer) {
     // Очищаем контейнер клавиш перед добавлением новых
@@ -87,9 +95,9 @@ if (pianoContainer && timerElement && notationContainer) {
     const VF = Vex.Flow;
     const renderer = new VF.Renderer(notationContainer, VF.Renderer.Backends.SVG);
 
-    renderer.resize(600, 200);
+    renderer.resize(1000, 150); // Устанавливаем фиксированный размер нотного стана
     const context = renderer.getContext();
-    const stave = new VF.Stave(10, 40, 500);
+    const stave = new VF.Stave(10, 40, 980); // Подстраиваем под размер контейнера
 
     stave.addClef('treble').setContext(context).draw();
 

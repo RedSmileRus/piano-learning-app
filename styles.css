@@ -15,8 +15,9 @@ body {
 /* Стили для нотного стана */
 #notation {
     margin-top: 20px;
-    width: 100%;
-    max-width: 600px;
+    width: 90%;
+    max-width: 1000px; /* Фиксированная ширина нотного стана */
+    height: 150px;
 }
 
 /* Контейнер для кнопки "Старт" и таймера */
@@ -30,11 +31,24 @@ body {
 
 /* Стили для кнопки "Старт" */
 #start-button {
-    width: 100px;
-    height: 40px;
-    font-size: 1.2em;
+    width: 120px;
+    height: 50px;
+    font-size: 1.5em;
     border: 1px solid black;
     background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+/* Стили для кнопки "Стоп" */
+#stop-button {
+    width: 120px;
+    height: 50px;
+    font-size: 1.5em;
+    border: 1px solid black;
+    background-color: #f44336;
     color: white;
     cursor: pointer;
     border-radius: 5px;
