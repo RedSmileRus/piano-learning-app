@@ -22,7 +22,7 @@ body {
 /* Стили для пианино */
 #piano {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: flex-end;
     position: absolute;
     bottom: 20px; /* Опускаем клавиатуру вниз */
@@ -51,8 +51,8 @@ body {
 /* Стили для черных клавиш */
 #piano button.black-key {
     position: absolute;
-    width: 60px; /* Фиксированная ширина черных клавиш */
-    height: 120px; /* Фиксированная высота черных клавиш */
+    width: 40%; /* Ширина черных клавиш */
+    height: 60%; /* Высота черных клавиш */
     background-color: black;
     color: white;
     border: 1px solid black;
@@ -62,11 +62,11 @@ body {
 }
 
 /* Позиционирование черных клавиш относительно белых */
-#piano button:nth-child(2) { left: 50px; }
-#piano button:nth-child(4) { left: 120px; }
-#piano button:nth-child(7) { left: 260px; }
-#piano button:nth-child(9) { left: 330px; }
-#piano button:nth-child(11) { left: 400px; }
+#piano button:nth-child(2) { left: 65px; }
+#piano button:nth-child(4) { left: 140px; }
+#piano button:nth-child(7) { left: 285px; }
+#piano button:nth-child(9) { left: 360px; }
+#piano button:nth-child(11) { left: 435px; }
 
 /* Стиль при нажатии на клавиши */
 #piano button:active {
