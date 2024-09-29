@@ -29,33 +29,33 @@ body {
     right: 0;
     margin: 0 auto;
     width: 90%;
-    max-width: 800px; /* Устанавливаем максимальную ширину клавиатуры */
+    max-width: 1600px; /* Увеличиваем максимальную ширину клавиатуры */
 }
 
 /* Стили для белых клавиш */
 #piano button.white-key {
-    width: 60px; /* Увеличиваем ширину белых клавиш */
-    height: 200px; /* Увеличиваем высоту белых клавиш */
-    margin: 2px;
+    width: 120px; /* Увеличиваем ширину белых клавиш в 2 раза */
+    height: 300px; /* Увеличиваем высоту белых клавиш в 2 раза */
+    margin: 4px; /* Увеличиваем отступы */
     background-color: white;
     border: 1px solid black;
     border-radius: 5px;
-    font-size: 1em;
+    font-size: 1.5em; /* Увеличиваем размер шрифта */
     box-shadow: 0 4px #999;
     cursor: pointer;
 }
 
 /* Стили для черных клавиш */
 #piano button.black-key {
-    width: 40px; /* Ширина черных клавиш относительно белых */
-    height: 120px; /* Высота черных клавиш */
+    width: 80px; /* Увеличиваем ширину черных клавиш в 2 раза */
+    height: 200px; /* Увеличиваем высоту черных клавиш в 2 раза */
     background-color: black;
     color: white;
     border: 1px solid black;
     position: relative;
     z-index: 1;
-    margin-left: -20px; /* Смещение черных клавиш влево для расположения поверх белых */
-    margin-right: -20px; /* Смещение черных клавиш вправо */
+    margin-left: -40px; /* Регулируем смещение черных клавиш */
+    margin-right: -40px; /* Регулируем смещение черных клавиш */
     border-radius: 5px;
     box-shadow: 0 4px #666;
     cursor: pointer;
