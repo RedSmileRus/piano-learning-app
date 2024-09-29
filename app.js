@@ -8,15 +8,18 @@ let synth;
 let isAudioInitialized = false;
 
 // Функция для воспроизведения звука
-function playNote(note) {
+async function playNote(note) {
     // Если аудио еще не инициализировано, инициализируем его
     if (!isAudioInitialized) {
-        Tone.start();  // Явно запускаем аудио-контекст
+        console.log("Инициализация аудио...");
+        await Tone.start();  // Явно запускаем аудио-контекст
         synth = new Tone.Synth().toDestination();  // Создаем синтезатор
         isAudioInitialized = true;  // Устанавливаем флаг инициализации
+        console.log("Аудио инициализировано.");
     }
 
     // Воспроизводим звук
+    console.log(`Воспроизведение ноты: ${note}`);
     synth.triggerAttackRelease(note + '4', '8n');
 }
 
