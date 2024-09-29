@@ -30,7 +30,7 @@ body {
     right: 0;
     width: 100%;
     max-width: 750px; /* Максимальная ширина клавиатуры */
-    height: 60%; /* Увеличиваем высоту клавиатуры */
+    height: 200px; /* Фиксированная высота клавиатуры */
     background: rgba(255, 255, 255, 0.8); /* Прозрачный фон */
     padding: 0 10px; /* Добавляем отступы для краев клавиатуры */
     box-sizing: border-box;
@@ -40,32 +40,36 @@ body {
 #piano button.white-key {
     flex: 1;
     height: 100%;
-    margin: 0 1px;
+    margin: 0 2px;
     background-color: white;
     border: 1px solid black;
-    border-radius: 5px;
+    border-radius: 0 0 5px 5px;
     box-shadow: 0 4px #999;
-    cursor: pointer;
     position: relative;
     z-index: 1;
 }
 
 /* Стили для черных клавиш */
 #piano button.black-key {
-    width: 60%; /* Черные клавиши шире */
-    height: 70%; /* Высота черных клавиш */
+    position: absolute;
+    width: 60%;
+    height: 60%;
     background-color: black;
     color: white;
     border: 1px solid black;
-    border-radius: 5px;
+    border-radius: 0 0 5px 5px;
     box-shadow: 0 4px #666;
-    position: absolute;
     z-index: 2;
-    margin-left: -30px; /* Смещение для центрирования над белыми клавишами */
+    margin-left: -30px;
     margin-right: -30px;
-    left: 50%; /* Смещаем в центр родителя */
-    transform: translateX(-50%); /* Центрируем относительно белых клавиш */
 }
+
+/* Индивидуальное позиционирование черных клавиш относительно белых */
+#piano button:nth-child(2) { left: 8.5%; }
+#piano button:nth-child(4) { left: 25%; }
+#piano button:nth-child(7) { left: 58%; }
+#piano button:nth-child(9) { left: 75%; }
+#piano button:nth-child(11) { left: 91.5%; }
 
 /* Стиль при нажатии на клавиши */
 #piano button:active {
