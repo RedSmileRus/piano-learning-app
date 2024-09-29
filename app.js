@@ -3,6 +3,23 @@ const pianoContainer = document.getElementById('piano');
 const timerElement = document.getElementById('timer');
 const notationContainer = document.getElementById('notation');
 
+// Определяем синтезатор Tone и флаг инициализации аудио
+let synth;
+let isAudioInitialized = false;
+
+// Функция для воспроизведения звука
+function playNote(note) {
+    // Если аудио еще не инициализировано, инициализируем его
+    if (!isAudioInitialized) {
+        Tone.start();  // Явно запускаем аудио-контекст
+        synth = new Tone.Synth().toDestination();  // Создаем синтезатор
+        isAudioInitialized = true;  // Устанавливаем флаг инициализации
+    }
+
+    // Воспроизводим звук
+    synth.triggerAttackRelease(note + '4', '8n');
+}
+
 // Убедимся, что все элементы существуют
 if (pianoContainer && timerElement && notationContainer) {
     const pianoKeys = ['C', 'D', 'E', 'F', 'G', 'A', 'B'];
@@ -13,11 +30,6 @@ if (pianoContainer && timerElement && notationContainer) {
         key.addEventListener('click', () => playNote(note));
         pianoContainer.appendChild(key);
     });
-
-    function playNote(note) {
-        const synth = new Tone.Synth().toDestination();
-        synth.triggerAttackRelease(note + '4', '8n');
-    }
 
     let timeLeft = 30;
 
@@ -52,4 +64,23 @@ if (pianoContainer && timerElement && notationContainer) {
     voice.draw(context, stave);
 } else {
     console.error("Не удалось найти элементы на странице.");
+}
+
+// Проверка на наличие объекта Telegram Web Apps
+if (window.Telegram.WebApp) {
+    const telegramWebApp = window.Telegram.WebApp;
+    
+    // Инициализация приложения
+    telegramWebApp.ready();
+
+    // Получение информации о пользователе
+    const user = telegramWebApp.initDataUnsafe.user;
+    console.log(`Привет, ${user.first_name}!`);
+    
+    // Пример отправки сообщения пользователю
+    document.getElementById('sendMessageButton').addEventListener('click', () => {
+        telegramWebApp.sendData("Привет от вашего пианино-бота!");
+    });
+} else {
+    console.error("Telegram Web Apps не обнаружен.");
 }
