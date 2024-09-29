@@ -11,21 +11,15 @@
 </head>
 <body>
     <div id="notation"></div>
+    <div id="controls">
+        <button id="octave-down">-</button>
+        <span id="current-octave">4</span>
+        <button id="octave-up">+</button>
+        <button>Кнопка 1</button>
+        <button>Кнопка 2</button>
+    </div>
     <div id="piano-container">
-        <div id="piano">
-            <button class="white-key">C</button>
-            <button class="black-key">C#</button>
-            <button class="white-key">D</button>
-            <button class="black-key">D#</button>
-            <button class="white-key">E</button>
-            <button class="white-key">F</button>
-            <button class="black-key">F#</button>
-            <button class="white-key">G</button>
-            <button class="black-key">G#</button>
-            <button class="white-key">A</button>
-            <button class="black-key">A#</button>
-            <button class="white-key">B</button>
-        </div>
+        <div id="piano"></div>
     </div>
     <div id="timer">30</div>
     <script src="app.js"></script>

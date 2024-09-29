@@ -2,14 +2,38 @@
 const pianoContainer = document.getElementById('piano');
 const timerElement = document.getElementById('timer');
 const notationContainer = document.getElementById('notation');
+const octaveDownButton = document.getElementById('octave-down');
+const octaveUpButton = document.getElementById('octave-up');
+const currentOctaveElement = document.getElementById('current-octave');
 
 // Определяем синтезатор Tone.js
 let synth = new Tone.Synth().toDestination();
+let currentOctave = 4; // Текущая октава
 
 // Функция для воспроизведения звука
 function playNote(note) {
-    synth.triggerAttackRelease(note + '4', '8n');
+    synth.triggerAttackRelease(note + currentOctave, '8n');
 }
+
+// Функция для обновления отображения текущей октавы
+function updateOctaveDisplay() {
+    currentOctaveElement.textContent = currentOctave;
+}
+
+// Добавляем обработчики для кнопок управления октавами
+octaveDownButton.addEventListener('click', () => {
+    if (currentOctave > 1) {
+        currentOctave--;
+        updateOctaveDisplay();
+    }
+});
+
+octaveUpButton.addEventListener('click', () => {
+    if (currentOctave < 7) {
+        currentOctave++;
+        updateOctaveDisplay();
+    }
+});
 
 // Убедимся, что все элементы существуют
 if (pianoContainer && timerElement && notationContainer) {
@@ -70,6 +94,9 @@ if (pianoContainer && timerElement && notationContainer) {
 
     const formatter = new VF.Formatter().joinVoices([voice]).format([voice], 400);
     voice.draw(context, stave);
+    
+    // Инициализируем отображение текущей октавы
+    updateOctaveDisplay();
 } else {
     console.error("Не удалось найти элементы на странице.");
 }
