@@ -19,23 +19,43 @@ body {
     max-width: 600px;
 }
 
-/* Контейнер для кнопок управления октавами */
-#controls {
+/* Контейнер для кнопки "Старт" и таймера */
+#start-container {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
-    width: 80%;
-    max-width: 800px;
+    flex-direction: column;
     margin: 20px 0;
-    flex-wrap: wrap;
+}
+
+/* Стили для кнопки "Старт" */
+#start-button {
+    width: 100px;
+    height: 40px;
+    font-size: 1.2em;
+    border: 1px solid black;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom: 10px;
 }
 
 /* Стили для таймера */
 #timer {
     font-size: 1.5em;
-    margin-bottom: 10px;
-    width: 100%;
+    margin-bottom: 20px;
     text-align: center;
+}
+
+/* Контейнер для кнопок управления октавами */
+#controls {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+    margin: 10px 0;
 }
 
 /* Стили для кнопок управления октавами */
@@ -60,8 +80,8 @@ body {
 /* Стили для пианино */
 #piano-container {
     display: flex;
-    justify-content: center;
-    align-items: flex-end;
+    flex-direction: column;
+    align-items: center;
     position: absolute;
     bottom: 20px;
     width: 90%;

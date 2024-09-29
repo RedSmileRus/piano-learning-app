@@ -11,15 +11,18 @@
 </head>
 <body>
     <div id="notation"></div>
-    <div id="controls">
-        <div id="timer">30</div> <!-- Таймер перемещен сюда -->
-        <button id="octave-down">-</button>
-        <span id="current-octave">4</span>
-        <button id="octave-up">+</button>
-        <button id="button1">К1</button>
-        <button id="button2">К2</button>
+    <div id="start-container">
+        <button id="start-button">Старт</button>
+        <div id="timer">30</div> <!-- Таймер и кнопка "Старт" ближе к нотному стану -->
     </div>
     <div id="piano-container">
+        <div id="controls">
+            <button id="octave-down">-</button>
+            <span id="current-octave">4</span>
+            <button id="octave-up">+</button>
+            <button id="button1">К1</button>
+            <button id="button2">К2</button>
+        </div>
         <div id="piano"></div>
     </div>
     <script src="app.js"></script>

@@ -5,10 +5,13 @@ const notationContainer = document.getElementById('notation');
 const octaveDownButton = document.getElementById('octave-down');
 const octaveUpButton = document.getElementById('octave-up');
 const currentOctaveElement = document.getElementById('current-octave');
+const startButton = document.getElementById('start-button');
 
 // Определяем синтезатор Tone.js
 let synth = new Tone.Synth().toDestination();
 let currentOctave = 4; // Текущая октава
+let timeLeft = 30; // Начальное время для таймера
+let timer; // Переменная для хранения таймера
 
 // Функция для воспроизведения звука
 function playNote(note) {
@@ -33,6 +36,23 @@ octaveUpButton.addEventListener('click', () => {
         currentOctave++;
         updateOctaveDisplay();
     }
+});
+
+// Обработчик для кнопки "Старт"
+startButton.addEventListener('click', () => {
+    if (timer) {
+        clearInterval(timer); // Сбрасываем предыдущий таймер, если есть
+    }
+    timeLeft = 30; // Сброс времени
+    timerElement.textContent = timeLeft;
+    timer = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = timeLeft;
+        if (timeLeft <= 0) {
+            clearInterval(timer);
+            // Действия по окончании времени
+        }
+    }, 1000);
 });
 
 // Убедимся, что все элементы существуют
@@ -63,30 +83,18 @@ if (pianoContainer && timerElement && notationContainer) {
         pianoContainer.appendChild(button);
     });
 
-    let timeLeft = 30;
-
-    const timer = setInterval(() => {
-        timeLeft--;
-        timerElement.textContent = timeLeft;
-        if (timeLeft <= 0) {
-            clearInterval(timer);
-            // Действия по окончании времени
-        }
-    }, 1000);
-
     // VexFlow - Рисование нотного стана
     const VF = Vex.Flow;
     const renderer = new VF.Renderer(notationContainer, VF.Renderer.Backends.SVG);
 
-    renderer.resize(600, 200);  // Увеличиваем размер нотного стана
+    renderer.resize(600, 200);
     const context = renderer.getContext();
     const stave = new VF.Stave(10, 40, 500);
 
     stave.addClef('treble').setContext(context).draw();
 
     const notes = [
-        new VF.StaveNote({ clef: 'treble', keys: ['c/4'], duration: 'q' }),
-        // Добавьте другие ноты
+        new VF.StaveNote({ clef: 'treble', keys: ['c/4'], duration: 'q' })
     ];
 
     const voice = new VF.Voice({ num_beats: 4, beat_value: 4 });
@@ -94,9 +102,6 @@ if (pianoContainer && timerElement && notationContainer) {
 
     const formatter = new VF.Formatter().joinVoices([voice]).format([voice], 400);
     voice.draw(context, stave);
-    
-    // Инициализируем отображение текущей октавы
-    updateOctaveDisplay();
 } else {
     console.error("Не удалось найти элементы на странице.");
 }
