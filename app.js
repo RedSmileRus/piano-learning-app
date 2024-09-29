@@ -3,37 +3,32 @@ const pianoContainer = document.getElementById('piano');
 const timerElement = document.getElementById('timer');
 const notationContainer = document.getElementById('notation');
 
-// Словарь для хранения аудиофайлов Howler.js
-const audioFiles = {};
+// Определяем синтезатор Tone и флаг инициализации аудио
+let synth;
+let isAudioInitialized = false;
 
-// Флаг разблокировки аудио
-let isAudioUnlocked = false;
-
-// Функция для разблокировки аудио
+// Функция для разблокировки аудио-контекста на iOS
 function unlockAudio() {
-    if (!isAudioUnlocked) {
-        // Создаем аудио-объект для разблокировки
-        const unlockSound = new Howl({
-            src: ['./sounds/unlock.mp3'],
-            html5: true,
-            volume: 0.0 // Тихий звук
+    if (!isAudioInitialized) {
+        // Инициализация аудио-контекста Tone.js
+        Tone.start().then(() => {
+            synth = new Tone.Synth().toDestination();
+            isAudioInitialized = true;
+            console.log("Аудио-контекст Tone.js разблокирован и инициализирован.");
+        }).catch((error) => {
+            console.error("Ошибка при инициализации аудио-контекста:", error);
         });
-
-        // Воспроизводим разблокирующий звук
-        unlockSound.play();
-        isAudioUnlocked = true;
-        console.log("Аудио-контекст разблокирован.");
     }
 }
 
-// Функция для воспроизведения звука ноты
+// Функция для воспроизведения звука
 function playNote(note) {
-    unlockAudio(); // Разблокируем аудио перед воспроизведением ноты
+    unlockAudio(); // Разблокировка аудио-контекста перед воспроизведением
 
-    if (audioFiles[note]) {
-        audioFiles[note].play();
+    if (synth) {
+        synth.triggerAttackRelease(note + '4', '8n');
     } else {
-        console.error(`Аудиофайл для ноты ${note} не найден.`);
+        console.error("Синтезатор не инициализирован.");
     }
 }
 
@@ -42,13 +37,6 @@ if (pianoContainer && timerElement && notationContainer) {
     const pianoKeys = ['C', 'D', 'E', 'F', 'G', 'A', 'B'];
 
     pianoKeys.forEach(note => {
-        // Создаем звуковые объекты Howler.js и сохраняем их в словаре
-        audioFiles[note] = new Howl({
-            src: [`./sounds/${note}.mp3`],
-            html5: true, // Используем HTML5 Audio, чтобы обойти некоторые ограничения на iOS
-        });
-
-        // Создаем клавиши пианино
         const key = document.createElement('button');
         key.textContent = note;
         key.addEventListener('click', () => playNote(note));
